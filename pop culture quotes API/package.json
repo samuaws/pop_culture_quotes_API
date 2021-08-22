@@ -1,0 +1,11 @@
+{
+  "name": "quotesapi",
+  "version": "1.0.0",
+  "description": "gives you quotes from diffrent shows",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "me",
+  "license": "ISC"
+}
