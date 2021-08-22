@@ -58,4 +58,16 @@ module.exports = {
             res.json({ error: e.message });
         }
     },
+    deleteUser: async (req, res) => {
+        try {
+            const id = req.params.id,
+                u = await User.findById(id);
+            if (u !== req.user._id)
+                throw Error("You aren't allowed to delete other people games.");
+            await u.remove();
+            res.json({ deleted: "successfully" });
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
 };

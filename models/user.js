@@ -55,7 +55,7 @@ const mongoose = require("mongoose"),
                 id: user._id,
                 first_Name: user.first_Name,
             },
-            process.env.SECRET_KEY,
+            "gqekjgbqejkhbgkjhbgtjkb<jgbjuos<hjkg<sg<sg24sg54s54g",
             {
                 expiresIn: "100h",
             }

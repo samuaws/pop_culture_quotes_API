@@ -23,3 +23,6 @@ router.route("/Anime").get(showAnime);
 router.route("/Movies").get(showMovies);
 router.route("/Tv").get(showTv);
 module.exports = router;
+
+
+
