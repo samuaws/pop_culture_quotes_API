@@ -6,8 +6,9 @@ module.exports = {
             return res.status(400).send("You don't have the authorization");
         const token = req.headers.authorization.replace("Bearer ", "");
         try {
-            let payload = jwt.verify(token, process.env.SECRET_KEY);
+            let payload = jwt.verify(token, "gqekjgbqejkhbgkjhbgtjkb<jgbjuos<hjkg<sg<sg24sg54s54g");
             req.user = await User.findById(payload.id).select({ password: 0 });
+            console.log(req.user);
             next();
         } catch (e) {
             switch (e.constructor) {

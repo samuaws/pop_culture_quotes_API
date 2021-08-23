@@ -62,8 +62,11 @@ module.exports = {
         try {
             const id = req.params.id,
                 u = await User.findById(id);
-            if (u !== req.user._id)
+                console.log(u);
+            if (u._id.toString() !== req.user._id.toString()){
+                
                 throw Error("You aren't allowed to delete other people games.");
+            }
             await u.remove();
             res.json({ deleted: "successfully" });
         } catch (e) {
