@@ -20,7 +20,7 @@ module.exports = {
         }
     },
     isAdmin: async function (req, res, next) {
-        if (!req.user.isAdmin) return res.status(403).send("user is not an Admin");
+        if (!req.user.is_Admin) return res.status(403).send("user is not an Admin");
         next();
     },
 };
