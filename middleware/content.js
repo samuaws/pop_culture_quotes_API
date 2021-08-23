@@ -1,0 +1,95 @@
+const Content = require("../models/content");
+module.exports = {
+    showContent: async (req, res) => {
+        try {
+            const Contents = await Content.find({ public: true });
+            res.json(Contents);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    createContent: async (req, res) => {
+        try {
+            const { text, cover } = req.body,
+                content = await Content.create({ text, cover });
+            res.json(content);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    showSpecificContent: async (req, res) => {
+        try {
+            const id = req.params.id,
+                content = await Content.findById(id);
+            res.json(content);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    updateContent: async (req, res) => {
+        try {
+            const id = req.params.id,
+                { text, cover } = req.body;
+            let content = await Content.findById(id);
+            if (content.user !== req.user._id)
+                throw new Error("You aren't allowed to edit this Content.");
+            content.text = text ? text : content.text;
+            content.public = public ? public : list.public;
+            await content.save();
+            res.json(content);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+
+    deleteContent: async (req, res) => {
+        try {
+            const id = req.params.id;
+            let content = await Content.findById(id);
+            if (content.user !== req.user._id)
+                throw new Error("You aren't allowed to delete this Content.");
+            content.remove();
+            res.json(content);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    addQuote: async (req, res) => {
+        const id = req.params.id,
+            { game } = req.body;
+        try {
+            let content = await Content.findById(id);
+            if (content.user !== req.user._id)
+                throw new Error("You aren't allowed to add a quote to this Contet list.");
+            content.games.push(game);
+            content.save();
+            res.json(content);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    showAnime: async (req, res) => {
+        try {
+            const Contents = await Content.find({ category: "Anime" });
+            res.json(Contents);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    showMovies: async (req, res) => {
+        try {
+            const Contents = await Content.find({ category: "Movie" });
+            res.json(Contents);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    showTv: async (req, res) => {
+        try {
+            const Contents = await Content.find({ public: "Tv" });
+            res.json(Contents);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+};

@@ -1,3 +1,5 @@
+const savedQuotes = require("./models/savedQuotes");
+
 const express = require("express"),
     app = express(),
     mongoose = require("mongoose"),
@@ -5,14 +7,16 @@ const express = require("express"),
     userRouter = require("./routes/user"),
     authRouter = require("./routes/auth"),
     quoteRouter = require("./routes/quote")
+    savedQuotesRouter = require("./routes/savedQuotes")
     //gameRouter = require("./routes/game"),
    // listRouter = require("./routes/list"),
     port=3000;
 
     app.use(express.json());
-    app.use("/quotes",quoteRouter);
-    app.use("/users", userRouter);
     app.use("/",authRouter);
+    app.use("/users", userRouter);
+    app.use("/quotes",quoteRouter);
+    app.use("./savedQuotes",savedQuotesRouter);
     mongoose.set("debug", true); // in devolpment process
     mongoose
     .connect(
