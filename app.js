@@ -16,7 +16,7 @@ const express = require("express"),
     app.use("/",authRouter);
     app.use("/users", userRouter);
     app.use("/quotes",quoteRouter);
-    app.use("./savedQuotes",savedQuotesRouter);
+    app.use("/savedQuotes",savedQuotesRouter);
     mongoose.set("debug", true); // in devolpment process
     mongoose
     .connect(

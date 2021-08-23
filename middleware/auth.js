@@ -2,6 +2,7 @@ const User = require("../models/user"),
     jwt = require("jsonwebtoken");
 module.exports = {
     isLoggedIn: async (req, res, next) => {
+        console.log("hello there");
         if (!req.headers.authorization)
             return res.status(400).send("You don't have the authorization");
         const token = req.headers.authorization.replace("Bearer ", "");

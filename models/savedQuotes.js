@@ -9,7 +9,7 @@ let savedQuoteSchema = new mongoose.Schema({
     quotes: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "quotes",
+            ref: "quote",
         },
     ],
 });

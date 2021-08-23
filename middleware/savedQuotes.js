@@ -1,4 +1,6 @@
-const Saved = require("../models/savedQuotes");
+const { findById } = require("../models/savedQuotes");
+const Saved = require("../models/savedQuotes"),
+    Quote = require ("../models/quote");
 module.exports = {
     showPublicSavedQuotes : async (req, res) => {
         try {
@@ -51,9 +53,10 @@ module.exports = {
         }
     },
     saveQuote : async (req, res) => {
-            const { quote } = req.body;
+            const { id } = req.body;
         try {
-            let saved = req.user.SavedQuotes;   
+            let quote = await Quotes.findById(id),
+            saved = req.user.SavedQuotes;   
             saved.quotes.push(quote);
             saved.save();
             res.json(saved);
