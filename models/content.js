@@ -19,6 +19,6 @@ let contentSchema = new mongoose.Schema({
     category : {
         required: true,
         type: String,
-    },
+    }
 });
 module.exports = mongoose.model("content", contentSchema);
