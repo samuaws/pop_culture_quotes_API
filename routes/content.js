@@ -14,14 +14,14 @@ const express = require("express"),
 router = express.Router();
 
 router.route("/").get(showContent).post(isLoggedIn, createContent);
+router.route("/Anime").get(showAnime);
+router.route("/Movies").get(showMovies);
+router.route("/Tv").get(showTv);
 
 router.route("/:id").get(showSpecificContent).all(isLoggedIn).put(updateContent).delete(deleteContent);
 
 router.route("/:id/addQuote").put(isLoggedIn,isAdmin, addQuote);
 
-router.route("/Anime").get(showAnime);
-router.route("/Movies").get(showMovies);
-router.route("/Tv").get(showTv);
 module.exports = router;
 
 

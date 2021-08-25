@@ -75,6 +75,7 @@ module.exports = {
             const Contents = await Content.find({ category: "Anime" });
             res.json(Contents);
         } catch (e) {
+            console.log(e);
             res.json({ error: e.message });
         }
     },
@@ -88,7 +89,7 @@ module.exports = {
     },
     showTv: async (req, res) => {
         try {
-            const Contents = await Content.find({ public: "Tv" });
+            const Contents = await Content.find({ category: "Tv" });
             res.json(Contents);
         } catch (e) {
             res.json({ error: e.message });
