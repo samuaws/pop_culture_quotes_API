@@ -64,9 +64,9 @@ module.exports = {
             }
 
            
-            console.log(req.user.savedQuotes._id.toString());
-            await req.user.savedQuotes.quotes.push(quote);
-            await req.user.savedQuotes.save();
+            let saved =  await Saved.findById(req.user.savedQuotes);
+            await saved.quotes.push(id);
+            await saved.save();
             await req.user.save();
             res.json("saved");
         } catch (e) {
