@@ -11,7 +11,8 @@ router = express.Router();
 
 router.route("/").get(showPublicSavedQuotes);
 
+router.route("/saveQuote").put(isLoggedIn, saveQuote);
+
 router.route("/:id").get(showSpecificSavedQuotes).all(isLoggedIn).put(updateSavedQuotes).delete(deleteSavedQuotes);
 
-router.route("/saveQuote").put(isLoggedIn, saveQuote);
 module.exports = router;

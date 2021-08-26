@@ -55,8 +55,9 @@ module.exports = {
     saveQuote : async (req, res) => {
             const { id } = req.body;
         try {
-            let quote = await Quotes.findById(id),
-            saved = req.user.SavedQuotes;   
+            let quote = await Quote.findById(id),
+            saved = req.user.savedQuotes;
+            console.log(saved);   
             saved.quotes.push(quote);
             saved.save();
             res.json(saved);

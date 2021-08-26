@@ -1,6 +1,7 @@
 const mongoose = require("mongoose"),
     jwt = require("jsonwebtoken"),
-    bcrypt = require("bcrypt");
+    bcrypt = require("bcrypt"),
+    
     userSchema = new mongoose.Schema({
         email: {
             required: true,
@@ -28,7 +29,10 @@ const mongoose = require("mongoose"),
             type: String,
             required: true,
         },
-        savedQuotes : [{ type: mongoose.Types.ObjectId, ref: "savedQuotes" }],
+        savedQuotes : { 
+            type: mongoose.Types.ObjectId, 
+            ref: "savedQuotes" ,
+        },
 
     });
     
