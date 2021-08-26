@@ -4,9 +4,17 @@ module.exports = {
     createUser: async (req, res) => {
         const { email, username, first_Name, last_Name, password } = req.body;
         try {
-            const user = await User.create({ email, username, first_Name, last_Name, password });
-            user.savedQuotes = await Saved.create({user})
-            console.log(user.savedQuotes)
+           
+            let user = await User.create({ email, username, first_Name, last_Name, password});
+            saving = await Saved.create({user});
+            user = await User.findById(user.id);
+           
+            user.savedQuotes =saving;
+            user.save();
+            saving.save();
+          
+            console.log(user.savedQuotes);
+
             res.status(201).json(user.insertToken());
         } catch (e) {
             res.json({ error: e.message });

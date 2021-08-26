@@ -1,6 +1,8 @@
 const { findById } = require("../models/savedQuotes");
 const Saved = require("../models/savedQuotes"),
-    Quote = require ("../models/quote");
+    Quote = require ("../models/quote"),
+    User = require("../models/user");
+
 module.exports = {
     showPublicSavedQuotes : async (req, res) => {
         try {
@@ -55,12 +57,18 @@ module.exports = {
     saveQuote : async (req, res) => {
             const { id } = req.body;
         try {
-            let quote = await Quote.findById(id),
-            saved = req.user.savedQuotes;
-            console.log(saved);   
-            saved.quotes.push(quote);
-            saved.save();
-            res.json(saved);
+            let quote = await Quote.findById(id);
+            if(quote==null)
+            {
+                res.json("quote not found ");
+            }
+
+           
+            console.log(req.user.savedQuotes._id.toString());
+            await req.user.savedQuotes.quotes.push(quote);
+            await req.user.savedQuotes.save();
+            await req.user.save();
+            res.json("saved");
         } catch (e) {
             res.json({ error: e.message });
         }

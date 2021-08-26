@@ -20,7 +20,6 @@ const express = require("express"),
     app.use("/users", userRouter);
     app.use("/quotes",quoteRouter);
     app.use("/contents",contentRouter);
-
     app.use("/savedQuotes",savedQuotesRouter);
     mongoose.set("debug", true); // in devolpment process
     mongoose
