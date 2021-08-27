@@ -1,9 +1,19 @@
-const Quote = require("../models/quote");
+const Quote = require("../models/quote"),
+     Content = require("../models/content");
+
 module.exports = {
     createQuote : async (req, res) => {
-        const { text,author,show } = req.body;
+        let { text,author,show,cover,category } = req.body;
         try {
             const quote = await Quote.create({ text,author,show  });
+            let content = await Content.findOne({text : new RegExp(show,"i")});
+            if(content == null)
+            {
+                text = show;
+                content = await Content.create({text,cover,category});
+            }
+            content.quotes.push(quote);
+            content.save();
             res.status(201).json(quote);
         } catch (e) {
             res.json({ error: e.message });
@@ -12,8 +22,16 @@ module.exports = {
     showQuote : async (req, res) => {
         const id = req.params.id;
         try {
-            const quote = await Quote.findById(id);
+            const quote = await Quote.findById(id).select({_id : 0});
             res.json(quote);
+        } catch (e) {
+            res.json({ error: e.message });
+        }
+    },
+    showAllQuote: async (req, res) => {
+        try {
+            const quotes = await Quote.find().select({_id : 0});
+            res.json(quotes);
         } catch (e) {
             res.json({ error: e.message });
         }

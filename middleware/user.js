@@ -35,7 +35,7 @@ module.exports = {
     showUser: async (req, res) => {
         const id = req.params.id;
         try {
-            const user = await User.findById(id).select({ passwords: 0 }); //.select( "-passwords" );
+            const user = await User.findById(id).select({ passwords: 0 }).populate("savedQuotes").select({"password" : 0,"_id": 0}); //.select( "-passwords" );
             res.json(user);
         } catch (e) {
             res.json({ error: e.message });

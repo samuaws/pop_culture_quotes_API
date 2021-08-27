@@ -1,8 +1,9 @@
-const Content = require("../models/content");
+const Content = require("../models/content"),
+    Quote = require ("../models/quote");
 module.exports = {
     showContent: async (req, res) => {
         try {
-            const Contents = await Content.find({ public: true });
+            const Contents = await Content.find().select({quotes : 0});
             res.json(Contents);
         } catch (e) {
             res.json({ error: e.message });
@@ -10,8 +11,9 @@ module.exports = {
     },
     createContent: async (req, res) => {
         try {
-            const { text, cover , category } = req.body,
+            const { text, cover , category  } = req.body,
                 content = await Content.create({ text, cover,category });
+                
             res.json(content);
         } catch (e) {
             res.json({ error: e.message });
@@ -20,7 +22,7 @@ module.exports = {
     showSpecificContent: async (req, res) => {
         try {
             const id = req.params.id,
-                content = await Content.findById(id);
+                content = await Content.findById(id).populate("quotes");
             res.json(content);
         } catch (e) {
             res.json({ error: e.message });
@@ -72,7 +74,7 @@ module.exports = {
     },
     showAnime: async (req, res) => {
         try {
-            const Contents = await Content.find({ category: "Anime" });
+            const Contents = await Content.find({ category: "Anime" }).select({quotes : 0 });
             res.json(Contents);
         } catch (e) {
             console.log(e);
@@ -81,7 +83,7 @@ module.exports = {
     },
     showMovies: async (req, res) => {
         try {
-            const Contents = await Content.find({ category: "Movie" });
+            const Contents = await Content.find({ category: "Movie" }).select({quotes : 0});
             res.json(Contents);
         } catch (e) {
             res.json({ error: e.message });
@@ -89,7 +91,7 @@ module.exports = {
     },
     showTv: async (req, res) => {
         try {
-            const Contents = await Content.find({ category: "Tv" });
+            const Contents = await Content.find({ category: "Tv" }).select({quotes : 0});
             res.json(Contents);
         } catch (e) {
             res.json({ error: e.message });

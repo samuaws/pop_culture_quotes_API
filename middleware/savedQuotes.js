@@ -1,4 +1,3 @@
-const { findById } = require("../models/savedQuotes");
 const Saved = require("../models/savedQuotes"),
     Quote = require ("../models/quote"),
     User = require("../models/user");
@@ -6,7 +5,7 @@ const Saved = require("../models/savedQuotes"),
 module.exports = {
     showPublicSavedQuotes : async (req, res) => {
         try {
-            const saved = await Saved.find({ public: true });
+            const saved = await Saved.find({ public: true }).populate("quotes").populate("user","username");
             res.json(saved);
         } catch (e) {
             res.json({ error: e.message });
