@@ -27,11 +27,10 @@ module.exports = {
     updateSavedQuotes :  async (req, res) => {
         try {
             const id = req.params.id,
-                { name, public } = req.body;
+                { public } = req.body;
             let saved = await Saved.findById(id);
             if (saved.user !== req.user._id)
                 throw new Error("You aren't allowed to edit this saved.");
-            saved.name = name ? name : saved.name;
             saved.public = public ? public : saved.public;
             await saved.save();
             res.json(saved);
@@ -47,7 +46,7 @@ module.exports = {
             {
                 throw new Error("You aren't allowed to delete this list.");
             }
-            saved.remove();
+            await saved.remove();
             res.json({ deleted: "successfully" });
         } catch (e) {
             res.json({ error: e.message });
@@ -56,18 +55,12 @@ module.exports = {
     saveQuote : async (req, res) => {
             const { id } = req.body;
         try {
-            let quote = await Quote.findById(id);
-            if(quote==null)
-            {
-                res.json("quote not found ");
-            }
-
            
             let saved =  await Saved.findById(req.user.savedQuotes);
             await saved.quotes.push(id);
             await saved.save();
             await req.user.save();
-            res.json("saved");
+            res.json({"message":"saved"});
         } catch (e) {
             res.json({ error: e.message });
         }
