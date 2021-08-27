@@ -42,15 +42,15 @@ module.exports = {
         }
     },
     updateUser: async (req, res) => {
-        const { first_Name, last_Name, passwords } = req.body,
+        const { first_Name, last_Name, password } = req.body,
             id = req.params.id;
         try {
-            if (id !== req.user._id)
+            if (id.toString() !== req.user._id.toString())
                 throw new Error("You aren't allowed to edit other users profiles.");
             const u = await User.findById(id);
             u.first_Name = first_Name ? first_Name : u.first_Name;
             u.last_Name = last_Name ? last_Name : u.last_Name;
-            u.passwords = passwords ? passwords : u.passwords;
+            u.password = password ? password : u.password;
             await u.save();
             res.status(201).send(u);
         } catch (e) {
