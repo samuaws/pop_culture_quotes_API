@@ -26,12 +26,23 @@ module.exports = {
     },
     updateSavedQuotes :  async (req, res) => {
         try {
+<<<<<<< Updated upstream
             const id = req.params.id,
                 { public } = req.body;
             let saved = await Saved.findById(id);
             if (saved.user !== req.user._id)
                 throw new Error("You aren't allowed to edit this saved.");
             saved.public = public ? public : saved.public;
+=======
+            
+               let {  public } = req.body;
+            let saved = await Saved.findById(req.user.savedQuotes);
+            
+            
+            if(public || public ===false)saved.public = public;
+
+
+>>>>>>> Stashed changes
             await saved.save();
             res.json(saved);
         } catch (e) {
