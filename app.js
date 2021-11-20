@@ -24,7 +24,7 @@ const express = require("express"),
     mongoose.set("debug", true); // in devolpment process
     mongoose
     .connect(
-        "mongodb+srv://admin:mSkBf10uzCtQibBl@cluster0.tlzaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", 
+        "mongodb+srv://admin:yelyesye@cluster0.tlzaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", 
         {
         useNewUrlParser: true,
         useUnifiedTopology: true,
