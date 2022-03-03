@@ -24,7 +24,7 @@ const express = require("express"),
     mongoose.set("debug", true); // in devolpment process
     mongoose
     .connect(
-        "mongodb+srv://admin:yelyesye@cluster0.tlzaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", 
+        "If you want the database conatct @yelyesye insta", 
         {
         useNewUrlParser: true,
         useUnifiedTopology: true,
